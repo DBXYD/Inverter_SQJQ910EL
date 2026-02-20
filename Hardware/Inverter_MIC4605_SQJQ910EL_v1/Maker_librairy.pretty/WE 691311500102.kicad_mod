@@ -1,0 +1,134 @@
+(footprint "WE 691311500102"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "<b>WR-TBL Serie 311 - 5.08 mm Close Vertical PCB Header , 2 Pins")
+	(property "Reference" "REF**"
+		(at 0.289 -5.4235 0)
+		(layer "F.SilkS")
+		(uuid "39aa9ce1-d858-4e71-9a5c-082717c01752")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "WE 691311500102"
+		(at 3.984 5.9316 0)
+		(layer "F.Fab")
+		(uuid "8e9b7df6-d138-4db2-90d0-ecdc23f988df")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "64107a2d-4f04-4c61-bfad-9d69ad5244ed")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c3510884-7fa9-4143-b8aa-734304be54b5")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start -6.08 -3.8)
+		(end -6.08 4.7)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "8ec9fa8d-adfb-45fa-9a52-9549150319a7")
+	)
+	(fp_line
+		(start -6.08 4.7)
+		(end 6.08 4.7)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "6dd2df1d-92f6-4cae-b2a0-6e4d1b106b14")
+	)
+	(fp_line
+		(start 6.08 -3.8)
+		(end -6.08 -3.8)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "76cc17f5-ac39-4343-9b2f-ed8484a0ea81")
+	)
+	(fp_line
+		(start 6.08 4.7)
+		(end 6.08 -3.8)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a62710a9-441f-43ec-a590-15b6b55d4132")
+	)
+	(fp_poly
+		(pts
+			(xy -6.33 -4.05) (xy 6.33 -4.05) (xy 6.33 4.95) (xy -6.33 4.95)
+		)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "aa147b1a-99d2-4dea-9164-6276552786cb")
+	)
+	(fp_text user "1"
+		(at -3 3 0)
+		(layer "Dwgs.User")
+		(uuid "6dc2d8d5-60b4-46fa-86fc-965501439a55")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at -2.54 0)
+		(size 2.4 2.4)
+		(drill 1.6)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "dadd1db0-9006-43ff-a549-a56ed0b63921")
+	)
+	(pad "2" thru_hole circle
+		(at 2.54 0)
+		(size 2.4 2.4)
+		(drill 1.6)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "c5fc058f-f5aa-4528-95b7-9794f8f978c8")
+	)
+	(embedded_fonts no)
+)

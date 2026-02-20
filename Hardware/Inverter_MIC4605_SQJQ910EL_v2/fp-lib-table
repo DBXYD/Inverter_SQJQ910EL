@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Maker_librairy")(type "KiCad")(uri "${KIPRJMOD}/Maker_librairy.pretty")(options "")(descr ""))
+)

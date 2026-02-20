@@ -1,0 +1,204 @@
+{
+  "Header": {
+    "GenerationSoftware": {
+      "Vendor": "KiCad",
+      "Application": "Pcbnew",
+      "Version": "9.0.2-9.0.2-0~ubuntu22.04.1"
+    },
+    "CreationDate": "2025-07-01T08:49:19+02:00"
+  },
+  "GeneralSpecs": {
+    "ProjectId": {
+      "Name": "Inverter_MIC4605_SQJQ910EL",
+      "GUID": "496e7665-7274-4657-925f-4d4943343630",
+      "Revision": "rev?"
+    },
+    "Size": {
+      "X": 55.05,
+      "Y": 60.05
+    },
+    "LayerNumber": 6,
+    "BoardThickness": 1.564,
+    "Finish": "None"
+  },
+  "DesignRules": [
+    {
+      "Layers": "Outer",
+      "PadToPad": 0.2,
+      "PadToTrack": 0.2,
+      "TrackToTrack": 0.2,
+      "MinLineWidth": 0.16,
+      "TrackToRegion": 0.2,
+      "RegionToRegion": 0.2
+    },
+    {
+      "Layers": "Inner",
+      "PadToPad": 0.0,
+      "PadToTrack": 0.0,
+      "TrackToTrack": 0.2,
+      "MinLineWidth": 0.2,
+      "TrackToRegion": 0.2,
+      "RegionToRegion": 0.2
+    }
+  ],
+  "FilesAttributes": [
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-F_Cu - Signal.gbr",
+      "FileFunction": "Copper,L1,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-In1_Cu - GND.gbr",
+      "FileFunction": "Copper,L5,Inr",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-In2_Cu - Signal.gbr",
+      "FileFunction": "Copper,L7,Inr",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-In3_Cu - VCC.gbr",
+      "FileFunction": "Copper,L9,Inr",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-In4_Cu - 3V3.gbr",
+      "FileFunction": "Copper,L11,Inr",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-B_Cu - Signal.gbr",
+      "FileFunction": "Copper,L6,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-F_Paste.gbr",
+      "FileFunction": "SolderPaste,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-B_Paste.gbr",
+      "FileFunction": "SolderPaste,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-F_Silkscreen.gbr",
+      "FileFunction": "Legend,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-B_Silkscreen.gbr",
+      "FileFunction": "Legend,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-F_Mask.gbr",
+      "FileFunction": "SolderMask,Top",
+      "FilePolarity": "Negative"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-B_Mask.gbr",
+      "FileFunction": "SolderMask,Bot",
+      "FilePolarity": "Negative"
+    },
+    {
+      "Path": "Inverter_MIC4605_SQJQ910EL-Edge_Cuts.gbr",
+      "FileFunction": "Profile",
+      "FilePolarity": "Positive"
+    }
+  ],
+  "MaterialStackup": [
+    {
+      "Type": "Legend",
+      "Name": "Top Silk Screen"
+    },
+    {
+      "Type": "SolderPaste",
+      "Name": "Top Solder Paste"
+    },
+    {
+      "Type": "SolderMask",
+      "Thickness": 0.01,
+      "Name": "Top Solder Mask"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.035,
+      "Name": "F.Cu - Signal"
+    },
+    {
+      "Type": "Dielectric",
+      "Thickness": 0.1,
+      "Material": "FR4",
+      "Name": "F.Cu - Signal/In1.Cu - GND",
+      "Notes": "Type: dielectric layer 1 (from F.Cu - Signal to In1.Cu - GND)"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.017,
+      "Name": "In1.Cu - GND"
+    },
+    {
+      "Type": "Dielectric",
+      "Thickness": 0.535,
+      "Material": "FR4",
+      "Name": "In1.Cu - GND/In2.Cu - Signal",
+      "Notes": "Type: dielectric layer 2 (from In1.Cu - GND to In2.Cu - Signal)"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.017,
+      "Name": "In2.Cu - Signal"
+    },
+    {
+      "Type": "Dielectric",
+      "Thickness": 0.1,
+      "Material": "FR4",
+      "Name": "In2.Cu - Signal/In3.Cu - VCC",
+      "Notes": "Type: dielectric layer 3 (from In2.Cu - Signal to In3.Cu - VCC)"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.035,
+      "Name": "In3.Cu - VCC"
+    },
+    {
+      "Type": "Dielectric",
+      "Thickness": 0.535,
+      "Material": "FR4",
+      "Name": "In3.Cu - VCC/In4.Cu - 3V3",
+      "Notes": "Type: dielectric layer 4 (from In3.Cu - VCC to In4.Cu - 3V3)"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.035,
+      "Name": "In4.Cu - 3V3"
+    },
+    {
+      "Type": "Dielectric",
+      "Thickness": 0.1,
+      "Material": "FR4",
+      "Name": "In4.Cu - 3V3/B.Cu - Signal",
+      "Notes": "Type: dielectric layer 5 (from In4.Cu - 3V3 to B.Cu - Signal)"
+    },
+    {
+      "Type": "Copper",
+      "Thickness": 0.035,
+      "Name": "B.Cu - Signal"
+    },
+    {
+      "Type": "SolderMask",
+      "Thickness": 0.01,
+      "Name": "Bottom Solder Mask"
+    },
+    {
+      "Type": "SolderPaste",
+      "Name": "Bottom Solder Paste"
+    },
+    {
+      "Type": "Legend",
+      "Name": "Bottom Silk Screen"
+    }
+  ]
+}
