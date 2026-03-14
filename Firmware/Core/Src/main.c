@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "dma.h"
 #include "tim.h"
 #include "usart.h"
 #include "usb.h"
@@ -31,7 +32,15 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+PUTCHAR_PROTOTYPE
+{
+  /* Place your implementation of fputc here */
+  /* e.g. write a character to the USART1 and Loop until the end of transmission */
+  HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, 0xFFFF);
 
+  return ch;
+}
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -69,8 +78,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	uint32_t alpha = 500;
-	int8_t dir = 1;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -91,6 +99,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_ADC2_Init();
   MX_TIM1_Init();
   MX_TIM3_Init();
@@ -99,27 +108,16 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_PCD_Init();
   /* USER CODE BEGIN 2 */
-	HAL_UART_Transmit(&huart3, "Hello World\r\n", 13, 100);
-	HAL_UART_Transmit(&huart3, "Starting PWM\r\n", 14, 100);
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
-	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
-	HAL_UART_Transmit(&huart3, "PWM Started\r\n", 13, 100);
+
+	init_device();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		if(alpha == 1000-2) dir = -1;
-		if(alpha == 1) dir = 1;
-		alpha += dir;
-
-		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, alpha);
-		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (1000-1) - alpha);
-		HAL_Delay(10k);
-
+		loop();
+		HAL_Delay(1);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

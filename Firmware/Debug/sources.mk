@@ -22,7 +22,9 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+Core/Src/acquisition \
 Core/Src \
+Core/Src/user_interface \
 Core/Startup \
 Drivers/STM32G4xx_HAL_Driver/Src \
 

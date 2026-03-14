@@ -1,0 +1,3 @@
+../Core/Src/acquisition/analog.c:12:19:analogInputInit	1
+../Core/Src/acquisition/analog.c:19:19:analogInputPrint	2
+../Core/Src/acquisition/analog.c:42:6:HAL_ADC_ConvCpltCallback	2

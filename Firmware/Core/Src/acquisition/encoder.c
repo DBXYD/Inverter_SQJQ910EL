@@ -1,0 +1,8 @@
+/*
+ * encoder.c
+ *
+ *  Created on: Feb 22, 2026
+ *      Author: nicolas
+ */
+
+
