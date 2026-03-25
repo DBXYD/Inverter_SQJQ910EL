@@ -1,0 +1,5 @@
+../Core/Src/acquisition/encoder.c:27:19:encoderInit	24	static
+../Core/Src/acquisition/encoder.c:46:19:encoderUpdate	16	static
+../Core/Src/acquisition/encoder.c:59:19:encoderPrint	24	static
+../Core/Src/acquisition/encoder.c:67:19:encoderReset	16	static
+../Core/Src/acquisition/encoder.c:78:5:encoderGetSpeed	24	static

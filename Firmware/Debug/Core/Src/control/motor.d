@@ -1,5 +1,5 @@
-Core/Src/acquisition/encoder.o: ../Core/Src/acquisition/encoder.c \
- ../Core/Inc/acquisition/encoder.h ../Core/Inc/main.h \
+Core/Src/control/motor.o: ../Core/Src/control/motor.c \
+ ../Core/Inc/control/motor.h ../Core/Inc/main.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -36,7 +36,7 @@ Core/Src/acquisition/encoder.o: ../Core/Src/acquisition/encoder.c \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
  ../Core/Inc/user_interface/shell.h ../Core/Inc/tim.h ../Core/Inc/main.h
-../Core/Inc/acquisition/encoder.h:
+../Core/Inc/control/motor.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:

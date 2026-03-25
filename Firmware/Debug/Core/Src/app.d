@@ -37,7 +37,8 @@ Core/Src/app.o: ../Core/Src/app.c ../Core/Inc/app.h ../Core/Inc/main.h \
  ../Core/Inc/tim.h ../Core/Inc/usart.h ../Core/Inc/adc.h \
  ../Core/Inc/user_interface/shell.h ../Core/Inc/main.h \
  ../Core/Inc/user_interface/neopixel.h \
- ../Core/Inc/user_interface/button.h ../Core/Inc/acquisition/analog.h
+ ../Core/Inc/user_interface/button.h ../Core/Inc/acquisition/analog.h \
+ ../Core/Inc/acquisition/encoder.h ../Core/Inc/control/motor.h
 ../Core/Inc/app.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
@@ -83,3 +84,5 @@ Core/Src/app.o: ../Core/Src/app.c ../Core/Inc/app.h ../Core/Inc/main.h \
 ../Core/Inc/user_interface/neopixel.h:
 ../Core/Inc/user_interface/button.h:
 ../Core/Inc/acquisition/analog.h:
+../Core/Inc/acquisition/encoder.h:
+../Core/Inc/control/motor.h:

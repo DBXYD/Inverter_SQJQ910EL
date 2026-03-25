@@ -1,0 +1,5 @@
+../Core/Src/acquisition/encoder.c:27:19:encoderInit	1
+../Core/Src/acquisition/encoder.c:46:19:encoderUpdate	1
+../Core/Src/acquisition/encoder.c:59:19:encoderPrint	1
+../Core/Src/acquisition/encoder.c:67:19:encoderReset	1
+../Core/Src/acquisition/encoder.c:78:5:encoderGetSpeed	2

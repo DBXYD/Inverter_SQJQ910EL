@@ -1,0 +1,7 @@
+../Core/Src/control/motor.c:10:19:motorInit	32	static
+../Core/Src/control/motor.c:38:19:motorSetSpeed	24	static
+../Core/Src/control/motor.c:53:19:motorUpdate	24	static
+../Core/Src/control/motor.c:67:19:motorStop	16	static
+../Core/Src/control/motor.c:82:19:motorPrint	32	static
+../Core/Src/control/motor.c:91:5:motorSetDuty	32	static
+../Core/Src/control/motor.c:107:6:motorCallback	4	static

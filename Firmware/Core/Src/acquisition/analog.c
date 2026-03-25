@@ -2,12 +2,15 @@
 #include <stdlib.h>
 #include "acquisition/analog.h"
 #include "user_interface/shell.h"
+#include "control/motor.h"
 #include "adc.h"
 #include "main.h"
+#include "tim.h"
 
 #define DIV_FREQ 400;
 h_analoginput_t h_analogInput1;
-uint32_t idx_div = 40000;
+uint32_t idx_div = 0;
+float I_u = 0;
 
 HAL_StatusTypeDef analogInputInit(h_analoginput_t *analogInput, ADC_HandleTypeDef* hadc, int nb_channels){
 	analogInput->hadc = hadc;
@@ -25,21 +28,22 @@ HAL_StatusTypeDef analogInputPrint(h_analoginput_t *analogInput)
 	}
 //	printf("U_u:%.3f,",analogInput->values[0]);
 //	printf("U_v:%.3f,",analogInput->values[1]);
-////	printf("%2.3f,",analogInput->values[2]);
 //	printf("I_u:%.3f,",analogInput->values[3]);
 //	printf("I_v:%.3f",analogInput->values[4]);
-////	printf("%2.3f,",analogInput->values[5]);
-	printf("%.3f,",analogInput->values[0]);
-	printf("%.3f,",analogInput->values[1]);
-//	printf("%2.3f,",analogInput->values[2]);
-	printf("%.3f,",analogInput->values[3]);
-	printf("%.3f",analogInput->values[4]);
-//	printf("%2.3f,",analogInput->values[5]);
-	printf("\n");
+//	printf("\r\n");
     return HAL_OK;
 }
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc){
+	I_u = h_analogInput1.values[3];
+	if(I_u < 0) I_u = -I_u;
+	if(I_u > 5) printf("Warning !\r\n");
+	if(I_u > 20){
+		printf("Error !\r\n");
+		motorStop(&h_motor1);
+	}
 	idx_div = (idx_div+1)%DIV_FREQ;
-	if(idx_div==0) analogInputPrint(&h_analogInput1);
+	if(idx_div==0) {
+		analogInputPrint(&h_analogInput1);
+	}
 }

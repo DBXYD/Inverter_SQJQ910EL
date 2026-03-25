@@ -13,7 +13,8 @@
 #include "user_interface/neopixel.h"
 #include "user_interface/button.h"
 #include "acquisition/analog.h"
-
+#include "acquisition/encoder.h"
+#include "control/motor.h"
 
 static char shell_uart3_received_char;
 
@@ -45,16 +46,14 @@ void init_device(void){
 
     HAL_UART_Receive_IT(&huart3, (uint8_t *)&shell_uart3_received_char, 1);
 
-
-	//	button_init();
-	//
 	// Initialisation motor control
 	// MOTOR
 	//	motor_init();
 	// ASSERV (PID)
 	//	asserv_init();
 	//
-	// Initialisation data acquistion
+
+    // Initialisation data acquistion
 	// ANALOG INPUT
     h_analogInput1.gain[0] = 10.9; //19
     h_analogInput1.offset[0] = 0;
@@ -74,28 +73,28 @@ void init_device(void){
     // 50mV/A
     // Offset : 2.46V
     h_analogInput1.gain[3] = 20;
-    h_analogInput1.offset[3] = 2.46;
+    h_analogInput1.offset[3] = 2.483;
     h_analogInput1.unit[3] = 'I';
     h_analogInput1.channel[3] = 'U';
 
     h_analogInput1.gain[4] = 20;
-    h_analogInput1.offset[4] = 2.46;
+    h_analogInput1.offset[4] = 2.483;
     h_analogInput1.unit[4] = 'I';
     h_analogInput1.channel[4] = 'V';
 
     h_analogInput1.gain[5] = 20;
-    h_analogInput1.offset[5] = 2.46;
+    h_analogInput1.offset[5] = 2.483;
     h_analogInput1.unit[5] = 'I';
     h_analogInput1.channel[5] = 'W';
 
     analogInputInit(&h_analogInput1, &hadc2, 6);
 
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
-	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
 	// ENCODER INPUT
-	//	input_encoder_init();
+	encoderInit(&h_encoder1, &htim8, 2.9296875); // (60*100)/(1024*2) 60 sec / min, 100Hz, 1024 tic / turn, 2 count / tic
+
+	// MOTOR INIT
+	motorInit(&h_motor1, &htim1, TIM_CHANNEL_1 | TIM_CHANNEL_2, 1, 48, 3000);
+
 }
 
 uint8_t shell_uart3_transmit(const char *pData, uint16_t size)
@@ -117,21 +116,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	}
 }
 
-uint32_t pwm = 850;
-int8_t inc = 1;
-
 void loop(){
-	if(pwm == 900) inc=-1;
-	if(pwm == 800) inc=1;
-	pwm += inc;
 
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 900);
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 100);
 
-	HAL_Delay(1000);
-
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 500);
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 500);
-
-	HAL_Delay(1000);
 }

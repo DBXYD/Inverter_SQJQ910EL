@@ -14,6 +14,7 @@
 "./Core/Src/tim.o"
 "./Core/Src/usart.o"
 "./Core/Src/usb.o"
+"./Core/Src/control/motor.o"
 "./Core/Src/user_interface/button.o"
 "./Core/Src/user_interface/neopixel.o"
 "./Core/Src/user_interface/shell.o"
