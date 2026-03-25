@@ -1,0 +1,5 @@
+../Core/Src/app.c:26:6:init_device	8	static
+../Core/Src/app.c:105:9:shell_uart3_transmit	16	static
+../Core/Src/app.c:111:9:shell_uart3_receive	16	static
+../Core/Src/app.c:117:6:HAL_UART_RxCpltCallback	16	static
+../Core/Src/app.c:124:6:loop	8	static

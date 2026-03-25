@@ -1,0 +1,11 @@
+../Core/Src/control/motor.c:10:19:motorInit	32	static
+../Core/Src/control/motor.c:34:19:motorSetSpeed	24	static
+../Core/Src/control/motor.c:49:19:motorSetDutyCycle	16	static
+../Core/Src/control/motor.c:61:19:motorUpdate	24	static
+../Core/Src/control/motor.c:75:19:motorStart	16	static
+../Core/Src/control/motor.c:92:19:motorStop	16	static
+../Core/Src/control/motor.c:107:19:motorPrint	32	static
+../Core/Src/control/motor.c:116:5:motorShellSetDuty	32	static
+../Core/Src/control/motor.c:126:5:motorShellSetRPM	32	static
+../Core/Src/control/motor.c:136:5:motorShellStart	24	static
+../Core/Src/control/motor.c:141:5:motorShellStop	24	static

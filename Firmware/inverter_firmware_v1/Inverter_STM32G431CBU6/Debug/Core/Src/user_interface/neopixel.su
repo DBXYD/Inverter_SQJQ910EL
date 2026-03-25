@@ -1,0 +1,6 @@
+../Core/Src/user_interface/neopixel.c:15:19:neoPixelInit	32	static
+../Core/Src/user_interface/neopixel.c:35:19:neoPixelRepaint	16	static
+../Core/Src/user_interface/neopixel.c:39:19:neoPixelSetHexColor	40	static
+../Core/Src/user_interface/neopixel.c:48:19:neoPixelSetRGBColor	24	static
+../Core/Src/user_interface/neopixel.c:65:19:neoPixelSetHueColor	48	static
+../Core/Src/user_interface/neopixel.c:106:5:shellLed	48	static

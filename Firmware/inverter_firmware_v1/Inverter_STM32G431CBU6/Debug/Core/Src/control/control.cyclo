@@ -1,0 +1,7 @@
+../Core/Src/control/control.c:24:6:controlInit	1
+../Core/Src/control/control.c:59:6:controlSetLoop	1
+../Core/Src/control/control.c:69:6:controlUpdate	2
+../Core/Src/control/control.c:97:6:controlUpdateMotorSpeed	1
+../Core/Src/control/control.c:102:5:controlSetCoeff	6
+../Core/Src/control/control.c:127:5:controlShellSetMode	4
+../Core/Src/control/control.c:141:5:controlShellSetCoeff	2
