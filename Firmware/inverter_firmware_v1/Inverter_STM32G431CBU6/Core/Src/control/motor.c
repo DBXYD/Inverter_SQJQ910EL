@@ -21,10 +21,15 @@ HAL_StatusTypeDef motorInit(h_motor_t *motor,
 	motor->speed_target = 0;
 	motor->duty = 0.5+motor->speed_target/(2*motor->speed_max);
 
-	shellAdd(&hshell1, "setMotorDuty", motorShellSetDuty, "Set instant duty cycle");
-	shellAdd(&hshell1, "setMotorRPM", motorShellSetRPM, "Set instant RPM Target");
-	shellAdd(&hshell1, "setMotorStart", motorShellStart, "Start PWM");
-	shellAdd(&hshell1, "setMotorStop", motorShellStop, "Stop PWM");
+	motor->ccr = __HAL_TIM_GET_AUTORELOAD(motor->htim)/2;
+	motor->ccr_target = __HAL_TIM_GET_AUTORELOAD(motor->htim)/2;
+
+	motor->started = 0;
+
+	//	shellAdd(&hshell1, "setMotorDuty", motorShellSetDuty, "Set instant duty cycle");
+	//	shellAdd(&hshell1, "setMotorRPM", motorShellSetRPM, "Set instant RPM Target");
+	//	shellAdd(&hshell1, "setMotorStart", motorShellStart, "Start PWM");
+	//	shellAdd(&hshell1, "setMotorStop", motorShellStop, "Stop PWM");
 
 	return HAL_OK;
 }
@@ -61,12 +66,20 @@ HAL_StatusTypeDef motorSetDutyCycle(h_motor_t *motor, float duty){
 HAL_StatusTypeDef motorUpdate(h_motor_t *motor){
 
 	uint32_t ARR = __HAL_TIM_GET_AUTORELOAD(motor->htim);
-	uint32_t pwm = (uint32_t)(motor->duty * ARR);
+	motor->ccr_target = (uint32_t)(motor->duty * ARR);
 
-	if(pwm > ARR-2) pwm = ARR-2;
-	if(pwm < 2) pwm = 2;
-	__HAL_TIM_SET_COMPARE(motor->htim, TIM_CHANNEL_1, pwm);
-	__HAL_TIM_SET_COMPARE(motor->htim, TIM_CHANNEL_2, ARR-pwm);
+	if(motor->ccr_target > ARR-10) motor->ccr_target = ARR-10;
+	if(motor->ccr_target < 10) motor->ccr_target = 10;
+
+	if(motor->ccr < motor->ccr_target){
+		motor->ccr+=50;
+	}
+	else if (motor->ccr > motor->ccr_target){
+		motor->ccr-=50;
+	}
+
+	__HAL_TIM_SET_COMPARE(motor->htim, TIM_CHANNEL_1, motor->ccr);
+	__HAL_TIM_SET_COMPARE(motor->htim, TIM_CHANNEL_2, ARR-motor->ccr);
 
 	return HAL_OK;
 }
@@ -74,16 +87,18 @@ HAL_StatusTypeDef motorUpdate(h_motor_t *motor){
 /* Start */
 HAL_StatusTypeDef motorStart(h_motor_t *motor){
 
+	motorUpdate(motor);
+
 	motor->speed_target = 0;
 	motor->duty = 0.5;
-
-	motorUpdate(motor);
 
 	HAL_TIM_PWM_Start(motor->htim, TIM_CHANNEL_1);
 	HAL_TIMEx_PWMN_Start(motor->htim, TIM_CHANNEL_1);
 
 	HAL_TIM_PWM_Start(motor->htim, TIM_CHANNEL_2);
 	HAL_TIMEx_PWMN_Start(motor->htim, TIM_CHANNEL_2);
+
+	motor->started = 1;
 
 	return HAL_OK;
 }
@@ -99,6 +114,8 @@ HAL_StatusTypeDef motorStop(h_motor_t *motor){
 
 	motor->speed_target = 0;
 	motor->duty = 0.5;
+
+	motor->started = 0;
 
 	return HAL_OK;
 }

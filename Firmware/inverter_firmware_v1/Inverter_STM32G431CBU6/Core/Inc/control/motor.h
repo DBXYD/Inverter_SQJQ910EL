@@ -26,6 +26,11 @@ typedef struct h_motor_struct {
 
     float speed_target;
     float duty;
+
+    uint32_t ccr_target;
+    uint32_t ccr;
+
+    uint8_t started;
 } h_motor_t;
 
 extern h_motor_t h_motor1;

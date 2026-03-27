@@ -20,7 +20,13 @@
 typedef enum{
     LOOP_OPENED,
 	LOOP_CLOSED,
+	LOOP_UNDEFINED,
 } loop_t;
+
+typedef enum{
+	PWM_DISABLED,
+	PWM_ENABLED,
+} enable_pwm_t;
 
 typedef struct h_control_struct {
 	h_motor_t* hmotor;
@@ -37,6 +43,7 @@ typedef struct h_control_struct {
     float u_k, u_k_1, u_k_2; // Commande en duty cycle entre -1 et 1
 
     loop_t loop_status;
+    enable_pwm_t pwm_status;
     uint8_t reset;
 
 } h_control_t;
@@ -50,6 +57,9 @@ void controlUpdateMotorSpeed(h_control_t *hctrl);
 int controlSetCoeff(h_control_t *hctrl, char* coeff, float value);
 int controlShellSetMode(h_shell_t* h_shell, int argc, char** argv);
 int controlShellSetCoeff(h_shell_t* h_shell, int argc, char** argv);
-
+int controlShellResetCoeff(h_shell_t* h_shell, int argc, char** argv);
+int controlShellSetPwnEnable(h_shell_t* h_shell, int argc, char** argv);
+int controlShellSetPwnDisable(h_shell_t* h_shell, int argc, char** argv);
+int controlShellSetTarget(h_shell_t* h_shell, int argc, char** argv);
 
 #endif /* SRC_CONTROL_CONTROL_H_ */

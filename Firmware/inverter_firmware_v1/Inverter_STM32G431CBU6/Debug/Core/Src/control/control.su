@@ -1,7 +1,11 @@
 ../Core/Src/control/control.c:24:6:controlInit	40	static
-../Core/Src/control/control.c:59:6:controlSetLoop	16	static
-../Core/Src/control/control.c:69:6:controlUpdate	24	static
-../Core/Src/control/control.c:97:6:controlUpdateMotorSpeed	16	static
-../Core/Src/control/control.c:102:5:controlSetCoeff	24	static
-../Core/Src/control/control.c:127:5:controlShellSetMode	24	static
-../Core/Src/control/control.c:141:5:controlShellSetCoeff	32	static
+../Core/Src/control/control.c:64:6:controlSetLoop	16	static
+../Core/Src/control/control.c:74:6:controlUpdate	24	static
+../Core/Src/control/control.c:106:6:controlUpdateMotorSpeed	16	static
+../Core/Src/control/control.c:116:5:controlSetCoeff	24	static
+../Core/Src/control/control.c:147:5:controlShellSetMode	24	static
+../Core/Src/control/control.c:160:5:controlShellSetCoeff	32	static
+../Core/Src/control/control.c:166:5:controlShellResetCoeff	24	static
+../Core/Src/control/control.c:176:5:controlShellSetPwnEnable	24	static
+../Core/Src/control/control.c:182:5:controlShellSetPwnDisable	24	static
+../Core/Src/control/control.c:188:5:controlShellSetTarget	24	static

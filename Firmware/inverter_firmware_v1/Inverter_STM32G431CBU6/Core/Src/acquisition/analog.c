@@ -37,9 +37,9 @@ HAL_StatusTypeDef analogInputPrint(h_analoginput_t *analogInput)
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc){
 	I_u = h_analogInput1.values[3];
 	if(I_u < 0) I_u = -I_u;
-	if(I_u > 5) printf("Warning !\r\n");
+	if(I_u > 10) printf("Warning !\r\n");
 	if(I_u > 20){
-		printf("Error !\r\n");
+		printf("Error !\r");
 		motorStop(&h_motor1);
 	}
 	idx_div = (idx_div+1)%DIV_FREQ;

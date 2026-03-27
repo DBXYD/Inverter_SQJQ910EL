@@ -26,6 +26,10 @@ static StateInput_t state_input;
 void init_device(void){
 
 	state_input = INIT_START;
+
+	// FSM Init
+	FSM_Init();
+
 	// Init SHELL
 	hshell1.drv.transmit = shell_uart3_transmit;
 	hshell1.drv.receive = shell_uart3_receive;
@@ -90,13 +94,14 @@ void init_device(void){
 	encoderInit(&h_encoder1, &htim8, -2.9296875, 0.01); // -1*(60*100)/(1024*2), -1 : inv A et B, 60 sec / min, 100Hz, 1024 tic / turn, 2 count / tic, 0.01 ms
 
 	// MOTOR INIT
-	motorInit(&h_motor1, &htim1, TIM_CHANNEL_1 | TIM_CHANNEL_2, 1, 48, 3000); // K, Vmax, speed_max
+	motorInit(&h_motor1, &htim1, TIM_CHANNEL_1 | TIM_CHANNEL_2, 1, 24, 1500); // K, Vmax, speed_max
 
 	// CONTROL INIT
 	controlInit(&h_control1, &h_motor1, &h_encoder1, 0, 0, 0, 0, 0);
 
 	// TICK INIT
 	HAL_TIM_Base_Start_IT(&htim4);
+
 
 	state_input = INIT_DONE;
 
@@ -124,8 +129,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 void loop(){
 	loop_number++;
 	//	Every 10 ms
-	FSM_Update(&h_control1);
+
 	encoderUpdate(&h_encoder1);
+	FSM_Update(&h_control1);
 	controlUpdate(&h_control1);
 	controlUpdateMotorSpeed(&h_control1);
 

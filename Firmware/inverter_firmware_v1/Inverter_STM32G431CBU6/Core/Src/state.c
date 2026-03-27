@@ -9,7 +9,8 @@
 #include "main.h"
 #include "state.h"
 
-static State_t currentState = STATE_INIT;
+static State_t currentState;
+
 // STATE_INIT
 // STATE_IDLE
 // STATE_LOOP_OPENED
@@ -17,58 +18,179 @@ static State_t currentState = STATE_INIT;
 // STATE_CURRENT_OVERLOAD
 // STATE_ERROR
 
+void FSM_Init(){
+	currentState = STATE_INIT;
+}
+
 void FSM_Update(h_control_t *hctrl){
-    switch (currentState)
-    {
-        case STATE_INIT:
-        {
-            currentState = STATE_IDLE;
-            break;
-        }
+	switch (currentState)
+	{
+	case STATE_INIT:
+	{
+		// Get inputs
 
-        case STATE_IDLE:
-        {
-        	if(hctrl->loop_status == LOOP_OPENED){
+		// Next Step
+		currentState = STATE_IDLE;
+		hctrl->loop_status = LOOP_UNDEFINED;
+		hctrl->pwm_status = PWM_DISABLED;
 
-        	} else if(hctrl->loop_status == LOOP_CLOSED){
+		// Set ouputs
 
-        	}
-        	currentState = STATE_IDLE;
-            break;
-        }
+		break;
+	}
 
-        case STATE_LOOP_OPENED:
-        {
+	case STATE_IDLE:
+	{
+		// Get inputs
 
-        	currentState = STATE_LOOP_OPENED;
-            break;
-        }
 
-        case STATE_LOOP_CLOSED:
-        {
+		// Next Step
+		if(hctrl->loop_status == LOOP_OPENED){
+			currentState = STATE_LOOP_OPENED;
 
-        	currentState = STATE_LOOP_CLOSED;
-            break;
-        }
+		} else if(hctrl->loop_status == LOOP_CLOSED){
+			currentState = STATE_LOOP_CLOSED;
 
-        case STATE_CURRENT_OVERLOAD:
-        {
+		} else{
+			currentState = LOOP_UNDEFINED;
 
-        	currentState = STATE_CURRENT_OVERLOAD;
-            break;
-        }
+		}
+		// Set ouputs
 
-        case STATE_ERROR:
-        {
+		break;
+	}
 
-        	currentState = STATE_ERROR;
-            break;
-        }
+	case STATE_LOOP_OPENED:
+	{
+		// Get inputs
 
-        default:
-        {
-        	currentState = STATE_IDLE;
-            break;
-        }
-    }
+
+		// Next Step
+		if(hctrl->loop_status == LOOP_OPENED){
+			currentState = STATE_LOOP_OPENED;
+
+		} else if(hctrl->loop_status == LOOP_CLOSED){
+			currentState = STATE_LOOP_CLOSED;
+
+		} else{
+			currentState = LOOP_UNDEFINED;
+
+		}
+		// Set ouputs
+		if(hctrl->pwm_status == PWM_ENABLED){
+			if(hctrl->hmotor->started == 0){
+				motorStart(hctrl->hmotor);
+				hctrl->hmotor->started = 1;
+			}
+		}
+		else if(hctrl->pwm_status == PWM_ENABLED){
+			motorStop(hctrl->hmotor);
+		}
+		break;
+	}
+
+	case STATE_LOOP_CLOSED:
+	{
+		// Get inputs
+
+
+		// Next Step
+		if(hctrl->loop_status == LOOP_OPENED){
+			currentState = STATE_LOOP_OPENED;
+
+		} else if(hctrl->loop_status == LOOP_CLOSED){
+			if(hctrl->pwm_status == PWM_DISABLED){
+				currentState = STATE_LOOP_CLOSED_CONFIG;
+			}
+			else if(hctrl->pwm_status == PWM_ENABLED){
+				currentState = STATE_LOOP_CLOSED;
+			}
+
+		} else{
+			currentState = LOOP_UNDEFINED;
+
+		}
+
+		// Set ouputs
+		if(hctrl->pwm_status == PWM_ENABLED){
+			motorStart(hctrl->hmotor);
+		}
+		else if(hctrl->pwm_status == PWM_ENABLED){
+			motorStop(hctrl->hmotor);
+		}
+
+		break;
+	}
+
+	case STATE_LOOP_CLOSED_CONFIG:
+	{
+		// Get inputs
+
+
+		// Next Step
+		if(hctrl->loop_status == LOOP_OPENED){
+			currentState = STATE_LOOP_OPENED;
+
+		} else if(hctrl->loop_status == LOOP_CLOSED){
+			if(hctrl->pwm_status == PWM_DISABLED){
+				currentState = STATE_LOOP_CLOSED_CONFIG;
+			}
+			else if(hctrl->pwm_status == PWM_ENABLED){
+				currentState = STATE_LOOP_CLOSED;
+			}
+
+		} else{
+			currentState = LOOP_UNDEFINED;
+
+		}
+
+		// Set ouputs
+
+
+		break;
+	}
+
+	case STATE_CURRENT_OVERLOAD:
+	{
+		// Get inputs
+
+
+		// Next Step
+		currentState = STATE_CURRENT_OVERLOAD;
+
+		// Set ouputs
+		hctrl->pwm_status = PWM_DISABLED;
+
+
+		break;
+	}
+
+	case STATE_ERROR:
+	{
+		// Get inputs
+
+
+		// Next Step
+		currentState = STATE_ERROR;
+
+		// Set ouputs
+		hctrl->pwm_status = PWM_DISABLED;
+
+		break;
+	}
+
+	default:
+	{
+		// Get inputs
+
+
+		// Next Step
+		currentState = STATE_IDLE;
+
+		// Set ouputs
+		hctrl->pwm_status = PWM_DISABLED;
+
+		break;
+	}
+	}
 }

@@ -51,13 +51,18 @@ void controlInit(h_control_t *hctrl,
 
 	shellAdd(&hshell1, "setControlMode", controlShellSetMode, "Change open/close loop");
 	shellAdd(&hshell1, "setControlCoeff", controlShellSetCoeff, "set a1, a2, b0, b1 and b2 coeff");
+	shellAdd(&hshell1, "setControlResetCoeff", controlShellResetCoeff, "reset a1, a2, b0, b1 and b2 coeff");
+	shellAdd(&hshell1, "setControlPwmEnable", controlShellSetPwnEnable, "activate pwm");
+	shellAdd(&hshell1, "setControlPwmDisable", controlShellSetPwnDisable, "deactivate pwm");
+	shellAdd(&hshell1, "setControlTarget", controlShellSetTarget, "set motor target speed");
+
 }
 
 /**
  * @brief Change le mode de boucle
  */
-void controlSetLoop(h_control_t *hctrl, loop_t mode)
-{
+void controlSetLoop(h_control_t *hctrl, loop_t mode){
+	hctrl->pwm_status = PWM_DISABLED;
     hctrl->loop_status = mode;
     hctrl->reset = 1;
 }
@@ -80,10 +85,14 @@ void controlUpdate(h_control_t *hctrl)
     	            - hctrl->a1 * hctrl->u_k_1
     	            - hctrl->a2 * hctrl->u_k_2;
     }
-    else
+    else if(hctrl->loop_status == LOOP_OPENED)
     {
         /* Boucle ouverte */
         hctrl->u_k = hctrl->target;
+    }
+    else if(hctrl->loop_status == LOOP_UNDEFINED){
+    	/* Motor Off */
+    	hctrl->u_k = 0;
     }
 
     /* Mise à jour mémoire */
@@ -95,11 +104,21 @@ void controlUpdate(h_control_t *hctrl)
 }
 
 void controlUpdateMotorSpeed(h_control_t *hctrl){
-   	motorSetDutyCycle(hctrl->hmotor, (1 + hctrl->u_k)/2);
+	if(hctrl->pwm_status == PWM_DISABLED || hctrl->loop_status == LOOP_UNDEFINED){
+		motorStop(hctrl->hmotor);
+	}
+	else{
+		motorSetDutyCycle(hctrl->hmotor, (1 + hctrl->u_k/hctrl->hmotor->speed_max)/2);
+	}
 
 }
 
 int controlSetCoeff(h_control_t *hctrl, char* coeff, float value){
+	hctrl->pwm_status = PWM_DISABLED;
+	hctrl->target = 0;
+	hctrl->hmotor->ccr = __HAL_TIM_GET_AUTORELOAD(hctrl->hmotor->htim)/2;
+	hctrl->hmotor->ccr_target = __HAL_TIM_GET_AUTORELOAD(hctrl->hmotor->htim)/2;
+
 	if(strcmp(coeff,"a1")==0){
 		hctrl->a1 = value;
 		return 0;
@@ -121,6 +140,7 @@ int controlSetCoeff(h_control_t *hctrl, char* coeff, float value){
 		return 0;
 	}
 
+
 	return 1;
 }
 
@@ -137,9 +157,36 @@ int controlShellSetMode(h_shell_t* h_shell, int argc, char** argv){
 	return 1;
 }
 
-
 int controlShellSetCoeff(h_shell_t* h_shell, int argc, char** argv){
 	if(argc != 3) return 1;
 
 	return controlSetCoeff(&h_control1, argv[1],atof(argv[2]));
+}
+
+int controlShellResetCoeff(h_shell_t* h_shell, int argc, char** argv){
+	if(argc != 1) return 1;
+
+	controlSetCoeff(&h_control1, "a1", 0);
+	controlSetCoeff(&h_control1, "a2", 0);
+	controlSetCoeff(&h_control1, "b0", 0);
+	controlSetCoeff(&h_control1, "b1", 0);
+	controlSetCoeff(&h_control1, "b2", 0);
+}
+
+int controlShellSetPwnEnable(h_shell_t* h_shell, int argc, char** argv){
+	if(argc != 1) return 1;
+	h_control1.pwm_status = PWM_ENABLED;
+	return 0;
+}
+
+int controlShellSetPwnDisable(h_shell_t* h_shell, int argc, char** argv){
+	if(argc != 1) return 1;
+	h_control1.pwm_status = PWM_DISABLED;
+	return 0;
+}
+
+int controlShellSetTarget(h_shell_t* h_shell, int argc, char** argv){
+	if(argc != 2) return 1;
+	h_control1.target = atof(argv[1]);
+	return 0;
 }

@@ -20,6 +20,7 @@ typedef enum{
     STATE_IDLE,
     STATE_LOOP_OPENED,
 	STATE_LOOP_CLOSED,
+	STATE_LOOP_CLOSED_CONFIG,
 	STATE_CURRENT_OVERLOAD,
     STATE_ERROR
 } State_t;
@@ -29,6 +30,7 @@ typedef enum{
 	INIT_DONE,
 } StateInput_t;
 
+void FSM_Init(void);
 void FSM_Update(h_control_t *hctrl);
 
 #endif /* INC_STATE_H_ */

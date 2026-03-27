@@ -1,1 +1,2 @@
-../Core/Src/state.c:20:6:FSM_Update	16	static
+../Core/Src/state.c:21:6:FSM_Init	4	static
+../Core/Src/state.c:25:6:FSM_Update	16	static
